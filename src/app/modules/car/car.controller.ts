@@ -27,7 +27,7 @@ const getAllCar = async(req:Request,res:Response)=>{
 
         res.status(200).json({
             success:true,
-            message:'Car is retrieved successfully',
+            message:'Cars retrieved successfully',
             data:result
         })
     } catch (err) {
@@ -43,7 +43,22 @@ const getSingleCar = async(req:Request,res:Response)=>{
 
         res.status(200).json({
             success:true,
-            message:'Single Car is retrieved successfully',
+            message:'Car retrieved successfully',
+            data:result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+// get delete single car
+const deleteSingleCar = async(req:Request,res:Response)=>{
+    try {
+        const { carId } = req.params;
+        const result = await CarServices.getSingleCarAndDeleteFromDB(carId)
+
+        res.status(200).json({
+            success:true,
+            message:'Car deleted successfully',
             data:result
         })
     } catch (err) {
@@ -55,4 +70,5 @@ export const CarControllers ={
     createCar,
     getAllCar,
     getSingleCar,
+    deleteSingleCar,
 }
