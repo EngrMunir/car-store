@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 // will call controller func
-router.post('/create-car', CarControllers.createCar)
+router.post('/', CarControllers.createCar)
 
 router.get('/',CarControllers.getAllCar)
 
