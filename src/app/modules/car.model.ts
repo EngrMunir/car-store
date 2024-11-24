@@ -19,4 +19,4 @@ const carSchema = new Schema<Car>({
 { timestamps: true } 
 )
 
-const CarModel= model<Car>('CarModel',carSchema);
+export const CarModel= model<Car>('Car',carSchema);
