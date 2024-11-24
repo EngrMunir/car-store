@@ -51,6 +51,24 @@ const getSingleCar = async(req:Request,res:Response)=>{
     }
 }
 // get delete single car
+const updateSingleCar = async(req:Request,res:Response)=>{
+    try {
+        const { carId } = req.params;
+        const updateData = req.body;
+
+        const result = await CarServices.getSingleCarAndUpdateFromDB(carId, updateData)
+
+        res.status(200).json({
+            success:true,
+            message:'Car updated successfully',
+            data:result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+// get delete single car
 const deleteSingleCar = async(req:Request,res:Response)=>{
     try {
         const { carId } = req.params;
@@ -65,10 +83,10 @@ const deleteSingleCar = async(req:Request,res:Response)=>{
         console.log(err)
     }
 }
-
 export const CarControllers ={
     createCar,
     getAllCar,
     getSingleCar,
+    updateSingleCar,
     deleteSingleCar,
 }
