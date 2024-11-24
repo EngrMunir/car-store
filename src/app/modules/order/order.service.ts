@@ -5,6 +5,15 @@ import { OrderModel } from "../order.model";
 const createOrderAndUpdateInventory = async (email: string, carId: string, quantity: number, totalPrice: number)=>{
     const car = await CarModel.findById(carId);
 
+    if (!car) {
+        throw new Error("Car not found");
+      }
+    
+      // Check if there is enough quantity in stock
+      if (car.quantity < quantity) {
+        throw new Error("Insufficient stock");
+      }
+
     car.quantity -= quantity;
     if (car.quantity === 0) {
         car.inStock = false;

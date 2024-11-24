@@ -4,10 +4,12 @@ import { CarServices } from "./car.service";
 const createCar = async(req:Request, res:Response)=>{
 
     try {
-        const { car : carData } = req.body;
+        const carData  = req.body;
 
     // will call service function to send this data
     const result = await CarServices.createCarIntoDB(carData);
+
+    
 
     // send response
     res.status(200).json({
@@ -25,6 +27,13 @@ const getAllCar = async(req:Request,res:Response)=>{
         
         const result = await CarServices.getAllCarFromDB()
 
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Car not found",
+            });
+        }
+
         res.status(200).json({
             success:true,
             message:'Cars retrieved successfully',
@@ -40,6 +49,13 @@ const getSingleCar = async(req:Request,res:Response)=>{
     try {
         const { carId } = req.params;
         const result = await CarServices.getSingleCarFromDB(carId)
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Car not found",
+            });
+        }
 
         res.status(200).json({
             success:true,
@@ -58,6 +74,13 @@ const updateSingleCar = async(req:Request,res:Response)=>{
 
         const result = await CarServices.getSingleCarAndUpdateFromDB(carId, updateData)
 
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Car not found",
+            });
+        }
+
         res.status(200).json({
             success:true,
             message:'Car updated successfully',
@@ -73,6 +96,13 @@ const deleteSingleCar = async(req:Request,res:Response)=>{
     try {
         const { carId } = req.params;
         const result = await CarServices.getSingleCarAndDeleteFromDB(carId)
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Car not found",
+            });
+        }
 
         res.status(200).json({
             success:true,
